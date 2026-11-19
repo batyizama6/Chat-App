@@ -7,6 +7,7 @@ public class Message {
 
     private String messageID;
     private int messageNumber;
+    private String sender;
     private String recipient;
     private String message;
     private String messageHash;
@@ -16,8 +17,9 @@ public class Message {
     public Message() {
     }
 
-    public Message(int messageNumber, String recipient, String message) {
+    public Message(int messageNumber, String sender, String recipient, String message) {
         this.messageNumber = messageNumber;
+        this.sender = sender;
         this.recipient = recipient;
         this.message = message;
         this.messageID = generateMessageID();
@@ -84,6 +86,10 @@ public class Message {
         return messageNumber;
     }
 
+    public String getSender() {
+        return sender;
+    }
+
     public String getRecipient() {
         return recipient;
     }
@@ -104,4 +110,3 @@ public class Message {
         totalMessages++;
     }
 }
-//
