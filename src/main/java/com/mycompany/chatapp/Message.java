@@ -1,4 +1,5 @@
 
+
 package com.mycompany.chatapp;
 
 import java.util.Random;
@@ -7,6 +8,7 @@ public class Message {
 
     private String messageID;
     private int messageNumber;
+    private String sender;
     private String recipient;
     private String message;
     private String messageHash;
@@ -17,7 +19,14 @@ public class Message {
     }
 
     public Message(int messageNumber, String recipient, String message) {
+        this(messageNumber, "Unknown", recipient, message);
+    }
+
+    public Message(int messageNumber, String sender,
+            String recipient, String message) {
+
         this.messageNumber = messageNumber;
+        this.sender = sender;
         this.recipient = recipient;
         this.message = message;
         this.messageID = generateMessageID();
@@ -26,13 +35,14 @@ public class Message {
 
     private String generateMessageID() {
         Random random = new Random();
-        long number = random.nextLong(1_000_000_000L, 10_000_000_000L);
+        long number = random.nextLong(
+                1_000_000_000L, 10_000_000_000L);
+
         return String.valueOf(number);
     }
 
     public boolean checkMessageID() {
-        return messageID != null
-                && messageID.length() <= 10;
+        return messageID != null && messageID.length() <= 10;
     }
 
     public String checkRecipientCell() {
@@ -45,7 +55,7 @@ public class Message {
     }
 
     public String checkMessageLength() {
-   if (message == null || message.trim().isEmpty()) {
+        if (message == null || message.trim().isEmpty()) {
             return "Please enter a message.";
         }
 
@@ -54,8 +64,9 @@ public class Message {
         }
 
         int excess = message.length() - 250;
-        return "Message exceeds 250 characters by " + excess
-                + "; please reduce the size.";
+
+        return "Message exceeds 250 characters by "
+                + excess + "; please reduce the size.";
     }
 
     public String createMessageHash() {
@@ -66,7 +77,9 @@ public class Message {
 
         String[] words = message.trim().split("\\s+");
 
-        String firstWord = words[0].replaceAll("[^a-zA-Z0-9]", "");
+        String firstWord = words[0]
+                .replaceAll("[^a-zA-Z0-9]", "");
+
         String lastWord = words[words.length - 1]
                 .replaceAll("[^a-zA-Z0-9]", "");
 
@@ -82,6 +95,10 @@ public class Message {
 
     public int getMessageNumber() {
         return messageNumber;
+    }
+
+    public String getSender() {
+        return sender;
     }
 
     public String getRecipient() {
@@ -104,4 +121,3 @@ public class Message {
         totalMessages++;
     }
 }
-//
